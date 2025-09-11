@@ -4,7 +4,7 @@ import cors from 'cors';
 import { getAllContacts, getContactById } from './services/contacts.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 
-const PORT = Number(getEnvVar('PORT', '2020'));
+const PORT = Number(getEnvVar('PORT'));
 
 export const setupServer = () => {
   const app = express();
