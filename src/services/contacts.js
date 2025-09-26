@@ -12,6 +12,21 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
+  const validSortOrders = [SORT_CONTACTS.ASC, SORT_CONTACTS.DESC];
+  const validSortFields = [
+    '_id',
+    'name',
+    'email',
+    'phone',
+    'contactType',
+    'createdAt',
+  ];
+
+  const finalSortOrder = validSortOrders.includes(sortOrder)
+    ? sortOrder
+    : SORT_CONTACTS.ASC;
+  const finalSortBy = validSortFields.includes(sortBy) ? sortBy : '_id';
+
   const queryFilter = {};
 
   if (filters.contactType) {
@@ -25,7 +40,7 @@ export const getAllContacts = async ({
     ContactsCollection.find(queryFilter)
       .skip(skip)
       .limit(limit)
-      .sort({ [sortBy]: sortOrder })
+      .sort({ [finalSortBy]: finalSortOrder })
       .exec(),
     ContactsCollection.countDocuments(queryFilter),
   ]);

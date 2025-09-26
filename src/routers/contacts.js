@@ -39,13 +39,13 @@ router.delete(
 
 router.put(
   '/contacts/:contactId',
-  isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(upsertContactController),
 );
 
 router.patch(
   '/contacts/:contactId',
+  isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );
