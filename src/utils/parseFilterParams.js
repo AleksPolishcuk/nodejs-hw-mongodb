@@ -8,12 +8,12 @@ const parseContactType = (type) => {
 };
 
 const parseIsFavorite = (isFavourite) => {
-  if (typeof isFavourite !== 'string') return;
+  if (typeof isFavourite !== 'string') return undefined;
 
   if (isFavourite === 'true') return true;
   if (isFavourite === 'false') return false;
 
-  return;
+  return undefined;
 };
 
 export const parseFilterParams = (query) => {

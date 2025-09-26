@@ -4,7 +4,7 @@ const parseSortOrder = (sortOrder) => {
   const isKnownOrder = [SORT_CONTACTS.ASC, SORT_CONTACTS.DESC].includes(
     sortOrder,
   );
-  if (!isKnownOrder) return sortOrder;
+  if (isKnownOrder) return sortOrder;
   return SORT_CONTACTS.ASC;
 };
 

@@ -9,13 +9,13 @@ export const createContactSchema = Joi.object({
 });
 
 export const updateContactSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required(),
-  phoneNumber: Joi.string().min(3).max(20).required(),
+  name: Joi.string().min(3).max(20).optional(),
+  phoneNumber: Joi.string().min(3).max(20).optional(),
   email: Joi.string().email().min(3).max(20),
   isFavorite: Joi.boolean(),
   contactType: Joi.string()
     .min(3)
     .max(20)
     .valid('work', 'home', 'personal')
-    .required(),
+    .optional(),
 });
