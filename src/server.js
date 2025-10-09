@@ -2,9 +2,10 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { getEnvVar } from './utils/getEnvVar.js';
-import contactsRouter from './routers/contacts.js';
-import  { errorHandler }  from './middlewares/errorHandler.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import cookieParser from 'cookie-parser';
+import router from './routers/index.js';
 
 const PORT = Number(getEnvVar('PORT'));
 
@@ -14,10 +15,11 @@ export const setupServer = () => {
   app.use(pino());
 
   app.use(cors());
+  app.use(cookieParser());
 
   app.use(express.json());
 
-  app.use(contactsRouter);
+  app.use(router);
   app.use('/', notFoundHandler);
 
   app.use(errorHandler);
@@ -25,6 +27,4 @@ export const setupServer = () => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-
-
 };
