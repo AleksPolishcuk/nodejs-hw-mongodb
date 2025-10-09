@@ -13,8 +13,7 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const queryFilter = { userId }; // ✅ Фільтрація по userId
-
+  const queryFilter = { userId };
   if (filters.contactType) {
     queryFilter.contactType = filters.contactType;
   }
@@ -40,13 +39,13 @@ export const getAllContacts = async ({
 };
 
 export const getContactById = async (id, userId) => {
-  const contact = await ContactsCollection.findOne({ _id: id, userId }); // ✅ Фільтрація по userId
+  const contact = await ContactsCollection.findOne({ _id: id, userId });
   return contact;
 };
 
 export const createContact = async (payload, userId) => {
   const contact = await ContactsCollection.create({
-    ...payload, // ✅ Розпиляємо payload
+    ...payload,
     userId,
   });
   return contact;
@@ -55,7 +54,7 @@ export const createContact = async (payload, userId) => {
 export const deleteContact = async (contactId, userId) => {
   const contact = await ContactsCollection.findOneAndDelete({
     _id: contactId,
-    userId, // ✅ Фільтрація по userId
+    userId,
   });
   return contact;
 };
@@ -63,7 +62,6 @@ export const deleteContact = async (contactId, userId) => {
 export const updateContact = async (contactId, payload, options = {}) => {
   const { userId, upsert = false } = options;
 
-  // Для upsert гарантуємо, що userId буде в новому документі
   const updateData = upsert ? { ...payload, userId } : payload;
 
   const rawResult = await ContactsCollection.findOneAndUpdate(
