@@ -7,11 +7,14 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
 import router from './routers/index.js';
 import { UPLOAD_DIR } from './constants/index.js';
+import { swaggerDocs } from './utils/swagger.js';
 
 const PORT = Number(getEnvVar('PORT'));
 
 export const setupServer = () => {
   const app = express();
+
+  app.use('/api-docs', swaggerDocs());
 
   app.use(pino());
 

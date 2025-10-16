@@ -1,0 +1,11 @@
+description: Not Found
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/error.yaml'
+    examples:
+      notFound:
+        summary: Resource not found
+        value:
+          status: 404
+          message: 'Contact not found'

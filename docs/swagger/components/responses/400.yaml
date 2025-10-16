@@ -1,0 +1,16 @@
+description: Bad Request - Validation Error
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/error.yaml'
+    examples:
+      validationError:
+        summary: Validation error example
+        value:
+          status: 400
+          message: 'Bad request!'
+          errors:
+            - field: 'email'
+              message: '"email" must be a valid email'
+            - field: 'phoneNumber'
+              message: '"phoneNumber" is required'
