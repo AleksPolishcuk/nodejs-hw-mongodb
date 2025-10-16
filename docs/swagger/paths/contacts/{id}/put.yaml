@@ -1,0 +1,79 @@
+tags:
+  - Contacts
+summary: Upsert a contact (update or create)
+operationId: upsertContact
+description: |
+  Update an existing contact or create a new one if it doesn't exist (upsert operation).
+  If contact doesn't exist, it will be created with the provided ID.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598777'
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - name
+          - phoneNumber
+          - contactType
+        properties:
+          name:
+            type: string
+            minLength: 3
+            maxLength: 20
+          phoneNumber:
+            type: string
+          email:
+            type: string
+            format: email
+          contactType:
+            type: string
+            enum: [work, home, personal]
+          isFavourite:
+            type: boolean
+          photo:
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Contact updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Contact upserted successfully!
+            data:
+              $ref: '../../../components/schemas/contact.yaml'
+  '201':
+    description: Contact created successfully (during upsert)
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Contact upserted successfully!
+            data:
+              $ref: '../../../components/schemas/contact.yaml'
+  '400':
+    $ref: '../../../components/responses/400.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'

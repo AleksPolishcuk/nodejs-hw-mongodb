@@ -1,0 +1,11 @@
+tags:
+  - Authentication
+summary: User logout
+security: []
+operationId: logoutUser
+description: Logout user and clear session
+responses:
+  '204':
+    description: Logout successful
+  '401':
+    description: Unauthorized
