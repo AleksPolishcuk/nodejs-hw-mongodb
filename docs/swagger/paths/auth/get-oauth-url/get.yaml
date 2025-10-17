@@ -1,0 +1,35 @@
+tags:
+  - Authentication
+summary: Get Google OAuth2 authorization URL
+operationId: getGoogleAuthUrl
+description: |
+  Generate and return Google OAuth2 authorization URL for frontend redirection.
+
+security: []
+responses:
+  '200':
+    description: Successfully generated OAuth URL
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully get Google OAuth url!
+            data:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: Google OAuth2 authorization URL
+                  example: 'https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=...'
+  '400':
+    description: Bad request - invalid parameters
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/error.yaml'

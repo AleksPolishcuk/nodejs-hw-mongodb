@@ -1,0 +1,8 @@
+type: object
+required:
+  - code
+properties:
+  code:
+    type: string
+    description: Google OAuth2 authorization code
+    example: 'AHHtOjlRYZ7orscmQJXtHlC5B9w2sa4+Spwk7c6U'

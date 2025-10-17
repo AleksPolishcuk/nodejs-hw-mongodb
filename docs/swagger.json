@@ -14,7 +14,7 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://example.com/api/v1"
+      "url": "https://nodejs-hw-7-swagger.onrender.com"
     }
   ],
   "security": [
@@ -937,6 +937,139 @@
           },
           "401": {
             "description": "Invalid or expired reset token"
+          }
+        }
+      }
+    },
+    "/auth/get-oauth-url": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Get Google OAuth2 authorization URL",
+        "operationId": "getGoogleAuthUrl",
+        "description": "Generate and return Google OAuth2 authorization URL for frontend redirection.\n",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully generated OAuth URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully get Google OAuth url!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "Google OAuth2 authorization URL",
+                          "example": "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=..."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/confirm-oauth": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Confirm Google OAuth2 authorization",
+        "operationId": "loginWithGoogle",
+        "description": "Exchange Google OAuth2 authorization code for access token.\n",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "Authorization code from Google OAuth2 redirect",
+                    "example": "AHHtOjlRYZ7orscmQJXtHlC5B9w2sa4+Spwk7c6U"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully authenticated with Google",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in via Google OAuth!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "description": "JWT access token for API requests"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Sets refreshToken and sessionId cookies (HttpOnly)"
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or expired authorization code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
           }
         }
       }

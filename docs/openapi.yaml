@@ -14,7 +14,7 @@ tags:
     description: Managing contacts
 servers:
   - url: http://localhost:3000
-  - url: https://example.com/api/v1
+  - url: https://nodejs-hw-7-swagger.onrender.com
 security:
   - bearerAuth: []
 paths:
@@ -57,6 +57,14 @@ paths:
   /auth/reset-pwd:
     post:
       $ref: ./swagger/paths/auth/reset-pwd/post.yaml
+
+  /auth/get-oauth-url:
+    get:
+      $ref: ./swagger/paths/auth/get-oauth-url/get.yaml
+
+  /auth/confirm-oauth:
+    post:
+      $ref: ./swagger/paths/auth/confirm-oauth/post.yaml
 
 components:
   securitySchemes:
